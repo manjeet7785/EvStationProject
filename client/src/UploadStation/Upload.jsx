@@ -67,7 +67,7 @@ const Upload = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Validation
+    // validation ke liye
     if (!formData.stationName || !formData.district || !formData.location ||
       !formData.latitude || !formData.longitude || !formData.contact) {
       toast.error("Please fill all required fields");
