@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Chatbot.css';
 import { FaPaperPlane, FaTimes } from 'react-icons/fa';
+import { apiUrl } from '../config/api';
 
 function Chatbot() {
   const [messages, setMessages] = useState([]);
@@ -29,7 +30,7 @@ function Chatbot() {
     setMessages(newMessages);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/chat/chat', {
+      const response = await axios.post(apiUrl('/chat/chat'), {
         message: messageText,
         chatHistory: messages
       }, {

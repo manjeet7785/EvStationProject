@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { FaChargingStation, FaClock, FaBolt, FaCalendar, FaRupeeSign, FaMapMarkerAlt, FaCheckCircle, FaTimesCircle, FaHourglassHalf } from 'react-icons/fa';
+import { apiUrl } from '../../config/api';
 
 const History = () => {
   const { isLoggedIn, user } = useAuth();
@@ -31,7 +32,7 @@ const History = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:4000/api/bookings/my-bookings', {
+        const response = await fetch(apiUrl('/bookings/my-bookings'), {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ const History = () => {
     try {
       const token = localStorage.getItem('accessToken');
 
-      const response = await fetch(`http://localhost:4000/api/bookings/cancel/${bookingId}`, {
+      const response = await fetch(apiUrl(`/bookings/cancel/${bookingId}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

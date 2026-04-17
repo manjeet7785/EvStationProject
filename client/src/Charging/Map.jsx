@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
+import { apiUrl } from '../config/api';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -72,7 +73,7 @@ const Map = () => {
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/stations');
+        const res = await fetch(apiUrl('/stations'));
         const data = await res.json();
         setStations(data || []);
       } catch (err) { console.error("Error fetching stations:", err); }

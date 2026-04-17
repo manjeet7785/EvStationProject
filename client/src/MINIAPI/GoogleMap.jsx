@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { apiUrl } from '../config/api';
 
 const LIBRARIES = ["places"];
 const MAP_STYLE = { width: '100%', height: '100%' };
@@ -20,7 +21,7 @@ const GoogleMapp = () => {
 
   const fetchStations = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/stations');
+      const response = await fetch(apiUrl('/stations'));
       if (!response.ok) throw new Error();
       const data = await response.json();
       setStations(data);

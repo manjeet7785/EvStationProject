@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { FaFilter, FaMapMarkerAlt, FaBolt, FaClock, FaStar } from 'react-icons/fa';
 import { CgHashtag } from 'react-icons/cg';
+import { apiUrl } from '../config/api';
 
 const LIBRARIES = ['places'];
 
@@ -33,7 +34,7 @@ const FilterStationsPage = () => {
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/stations');
+        const res = await fetch(apiUrl('/stations'));
         const data = await res.json();
         setStations(Array.isArray(data) ? data : []);
       } catch (err) { console.error('Failed to load stations', err); }

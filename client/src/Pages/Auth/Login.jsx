@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../Context/AuthContext';
+import { apiUrl } from '../../config/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:4000/api/auth/signin', {
+      const response = await fetch(apiUrl('/auth/signin'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

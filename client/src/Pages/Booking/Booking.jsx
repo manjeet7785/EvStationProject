@@ -3,6 +3,7 @@ import { useAuth } from '../../Context/AuthContext';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import qrImage from '../../assets/Qr.jpeg';
+import { apiUrl } from '../../config/api';
 
 const Booking = () => {
   const { isLoggedIn, selectedStation: contextStation } = useAuth();
@@ -58,7 +59,7 @@ const Booking = () => {
         let main = contextStation;
 
         if (!main && stationId) {
-          const res = await fetch(`http://localhost:4000/api/stations/${stationId}`);
+          const res = await fetch(apiUrl(`/stations/${stationId}`));
           if (!res.ok) {
             throw new Error(`Failed to fetch station: ${res.status}`);
           }
@@ -67,7 +68,7 @@ const Booking = () => {
         }
 
         if (!main) {
-          const res = await fetch('http://localhost:4000/api/stations');
+          const res = await fetch(apiUrl('/stations'));
           if (!res.ok) {
             throw new Error(`Failed to fetch stations: ${res.status}`);
           }
@@ -78,7 +79,7 @@ const Booking = () => {
         setMainStation(main);
         setSelectedStation(main);
 
-        const allRes = await fetch('http://localhost:4000/api/stations');
+        const allRes = await fetch(apiUrl('/stations'));
         if (!allRes.ok) {
           throw new Error(`Failed to fetch all stations: ${allRes.status}`);
         }
@@ -196,7 +197,7 @@ const Booking = () => {
         return navigate('/login');
       }
 
-      let response = await fetch('http://localhost:4000/api/bookings/create', {
+      let response = await fetch(apiUrl('/bookings/create'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

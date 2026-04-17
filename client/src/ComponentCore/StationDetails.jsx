@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt, FaBolt, FaClock, FaStar, FaRoute, FaCalendarCheck, FaUserCircle } from 'react-icons/fa';
+import { apiUrl } from '../config/api';
 
 const StationDetailPage = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const StationDetailPage = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/stations/${id}`);
+        const res = await fetch(apiUrl(`/stations/${id}`));
         const data = await res.json();
         setStation(data);
       } catch (err) {

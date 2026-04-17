@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../config/api';
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const Upload = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/api/stations/upload', {
+      const response = await fetch(apiUrl('/stations/upload'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

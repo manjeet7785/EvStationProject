@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaChargingStation, FaCheckCircle, FaTimesCircle, FaHistory, FaRupeeSign, FaUser, FaPhone, FaCar, FaEnvelope, FaMapPin } from 'react-icons/fa';
 import { useAuth } from '../../Context/AuthContext';
+import { apiUrl } from '../../config/api';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -12,12 +13,12 @@ const Dashboard = () => {
       let token = localStorage.getItem('accessToken');
       if (!token) throw new Error('No access token');
 
-      let res = await fetch('http://localhost:4000/api/bookings/my-bookings', {
+      let res = await fetch(apiUrl('/bookings/my-bookings'), {
         headers: { 'Authorization': `Bearer ${token}` },
         credentials: 'include'
       });
       if (res.status === 401) {
-        const refresh = await fetch('http://localhost:4000/api/auth/refresh-token', {
+        const refresh = await fetch(apiUrl('/auth/refresh-token'), {
           method: 'GET',
           credentials: 'include'
         });
@@ -26,7 +27,7 @@ const Dashboard = () => {
           if (r?.accessToken) {
             localStorage.setItem('accessToken', r.accessToken);
             token = r.accessToken;
-            res = await fetch('http://localhost:4000/api/bookings/my-bookings', {
+            res = await fetch(apiUrl('/bookings/my-bookings'), {
               headers: { 'Authorization': `Bearer ${token}` },
               credentials: 'include'
             });
@@ -54,7 +55,7 @@ const Dashboard = () => {
   const handleCancel = async (id) => {
     if (!window.confirm("Are you sure you want to cancel?")) return;
     const token = localStorage.getItem('accessToken');
-    const res = await fetch(`http://localhost:4000/api/bookings/cancel/${id}`, {
+    const res = await fetch(apiUrl(`/bookings/cancel/${id}`), {
       method: 'PUT',
       headers: { 'Authorization': `Bearer ${token}` }
     });
