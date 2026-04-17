@@ -1,42 +1,3 @@
-// const jwt = require('jsonwebtoken');
-// const User = require('../Model/User');
-
-// const JWT_SECRET = process.env.JWT_SECRET;
-
-// const auth = async (req, res, next) => {
-//   try {
-//     // Get token from header
-//     const token = req.header('Authorization')?.replace('Bearer ', '');
-
-//     if (!token) {
-//       return res.status(401).json({ message: 'No token, authorization denied' });
-//     }
-
-//     // Verify token
-//     const decoded = jwt.verify(token, JWT_SECRET);
-
-//     // Find user by ID
-//     const user = await User.findById(decoded.id).select('-password');
-
-//     if (!user) {
-//       return res.status(401).json({ message: 'User not found' });
-//     }
-
-//     // Add user to request
-//     req.user = user;
-//     next();
-//   } catch (error) {
-//     console.error('Auth middleware error:', error);
-//     res.status(401).json({ message: 'Token is not valid' });
-//   }
-// };
-
-// module.exports = auth;
-
-
-
-
-
 const jwt = require('jsonwebtoken');
 const User = require('../Model/User');
 
@@ -68,7 +29,7 @@ const auth = async (req, res, next) => {
   }
 };
 
-// Admin middleware - check if user is admin
+//Admin ke liye middleware
 const adminAuth = async (req, res, next) => {
   try {
     const authHeader = req.header('Authorization');

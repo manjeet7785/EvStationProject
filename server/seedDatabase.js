@@ -6,12 +6,8 @@ const Mongo_URI = 'mongodb+srv://manjeetmaurya7785_db_user:f9Q4YLCbY2Y26jSX@alld
 
 const seedDatabase = async () => {
   try {
-    // Connect to MongoDB
     await mongoose.connect(Mongo_URI);
     console.log('Connected to MongoDB');
-
-    // Clear existing data (Optional: Uncomment if you want a fresh start)
-    // await Station.deleteMany({}); 
 
     const formattedStations = stations
       .filter(station => station.name && station.location && (station.lat || station.latitude))
@@ -19,7 +15,7 @@ const seedDatabase = async () => {
 
         // --- ROBUST TYPE NORMALIZATION ---
         let rawType = (station.type || 'AC').toUpperCase();
-        let finalType = 'AC'; // Default
+        let finalType = 'AC';
 
         if (rawType.includes('DC') && rawType.includes('AC')) {
           finalType = 'AC/DC';
@@ -36,7 +32,7 @@ const seedDatabase = async () => {
           location: station.location,
           latitude: station.latitude || station.lat,
           longitude: station.longitude || station.lng,
-          type: finalType, // Validated against enum
+          type: finalType,
           capacity: station.capacity || 'Not specified',
           timing: station.timing || '24/7',
           contact: station.contact || 'Not Available',
@@ -46,15 +42,13 @@ const seedDatabase = async () => {
         };
       });
 
-    // Insert stations into database
     const result = await Station.insertMany(formattedStations);
-    console.log(`✅ Successfully saved ${result.length} stations to database`);
+    console.log(` Successfully saved ${result.length} stations to database`);
 
-    // Close the connection
     await mongoose.connection.close();
     console.log('Database connection closed');
   } catch (error) {
-    console.error('❌ Error seeding database:', error.message);
+    console.error('Error seeding database:', error.message);
     process.exit(1);
   }
 };

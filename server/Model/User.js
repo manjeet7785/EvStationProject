@@ -105,7 +105,7 @@ const UserSchema = new mongoose.Schema({
     default: false
   }
 }, {
-  timestamps: true  // ✅ Yahan pe sahi jagah!
+  timestamps: true
 });
 
 module.exports = mongoose.model('User', UserSchema);

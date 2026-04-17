@@ -9,7 +9,6 @@ const {
   getDashboardStats
 } = require('../controller/AdminController');
 
-// All routes require admin authentication
 router.get('/users', adminAuth, getAllUsers);
 router.post('/users/:userId/make-admin', adminAuth, makeUserAdmin);
 router.post('/users/:userId/remove-admin', adminAuth, removeUserAdmin);
