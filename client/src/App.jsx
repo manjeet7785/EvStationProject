@@ -21,7 +21,7 @@ import AdminPanel from './Pages/AdminPanel';
 const App = () => {
   // Login Control 
   // const [isLoading, setIsLoading] = useState(false);
-
+  //console.log("Checking")
   // console.log("Hello"); 
 
   return (

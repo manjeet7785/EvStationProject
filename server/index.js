@@ -11,6 +11,7 @@ const adminRouter = require('./Router/AdminRouter');
 
 const app = Express();
 
+
 app.use(cors({
   origin: [
     'http://localhost:5173',
@@ -43,7 +44,7 @@ async function main() {
   try {
     if (Mongo_URI) {
       await mongoose.connect(Mongo_URI);
-      console.log('Connected to MongoDB');
+      console.log('Congratulations Connected to MongoDB');
     }
   } catch (error) {
     console.log(' MongoDB Connection Error:', error.message);
